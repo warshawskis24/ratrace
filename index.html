@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#0b0908"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0b0908"/><text x="50" y="62" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="30" fill="#f1b632">RR</text></svg></template>
 </head>
 <body>
 <x-dc>
@@ -32,15 +33,16 @@
   @media (max-width:760px){
     [data-heroart="desktop"] { display:none !important; }
     [data-heroart="mobile"] { display:block !important; }
-    [data-boardstack] { top:74% !important; grid-template-columns:repeat(2,minmax(78px,112px)) !important; gap:clamp(12px,4vw,28px) !important; }
+    [data-boardstack] { top:74% !important; grid-template-columns:repeat(2,minmax(88px,95px)) !important; gap:clamp(12px,4vw,28px) !important; }
     [data-boardstack] svg { width:clamp(30px,8vw,52px) !important; }
-    [data-hero] { min-height:100svh; display:flex; align-items:center; }
-    [data-heroframe] { width:100% !important; box-shadow:none !important; }
-    [data-boardstack] { transform:translateX(-50%) !important; }
+    [data-hero] { min-height:100svh; display:flex; align-items:center; overflow:hidden; }
+    [data-heroframe] { width:100% !important; height:100svh; box-shadow:none !important; overflow:hidden; }
+    [data-heroart="mobile"] { position:absolute; inset:0; width:100% !important; height:100% !important; object-fit:cover; object-position:50% 38%; }
+    [data-boardstack] { transform:translateX(-50%) !important; top:calc(64.5cqw + 38svh + 22px) !important; grid-template-columns:repeat(2,minmax(92px,112px)) !important; gap:clamp(18px,6vw,32px) !important; }
     [data-navdesk] { display:none !important; }
     [data-burger] { display:flex !important; }
     [data-nav] { padding:8px 16px !important; }
-    [data-floatcta] { top:1% !important; left:auto !important; right:3% !important; font-size:clamp(8px,2.6cqw,13px) !important; transform:rotate(-1.5deg) !important; }
+    [data-floatcta] { top:max(14px, calc(38svh - 35.5cqw - 24cqw)) !important; left:50% !important; right:auto !important; font-size:clamp(10px,3.4cqw,15px) !important; transform:translateX(-50%) rotate(-1.5deg) !important; }
   }
   @media (max-height:640px){
     [data-hero] h1 { font-size:clamp(38px,9vh,64px) !important; }
@@ -48,6 +50,11 @@
   }
   @media (max-width:640px){
     [data-grid="three"], [data-grid="four"] { grid-template-columns:1fr !important; }
+    [data-mission] { gap:14px !important; }
+    [data-mission] > div { padding:12px 16px 12px 40px !important; gap:2px !important; margin-left:14px; }
+    [data-mission] > div > div:first-child { top:50% !important; left:-16px !important; transform:translateY(-50%); width:38px !important; height:38px !important; font-size:17px !important; }
+    [data-mission] > div > div:nth-child(2) { display:none !important; }
+    [data-mission] > div > div:nth-child(3) { font-size:20px !important; }
     [data-stat] { border-left:none !important; border-top:1px solid rgba(51,38,31,.14); }
     [data-stat]:first-child { border-top:none !important; }
     [data-step] { grid-template-columns:62px 1fr !important; gap:14px !important; }
@@ -58,10 +65,10 @@
     [data-navmode] { font-size:11px !important; padding:7px 11px 6px !important; }
   }
   @media (max-width:860px) and (min-width:761px){
-    [data-boardstack] { top:74% !important; grid-template-columns:repeat(2,minmax(96px,140px)) !important; gap:clamp(16px,5vw,40px) !important; }
+    [data-boardstack] { top:74% !important; grid-template-columns:repeat(2,minmax(92px,119px)) !important; gap:clamp(16px,5vw,40px) !important; }
   }
   @media (max-height:700px){
-    [data-boardstack] [data-door] { min-height:0 !important; padding:10px !important; font-size:clamp(13px,1.6vw,18px) !important; }
+    [data-boardstack] [data-door] { min-height:0 !important; padding:8px 3px !important; font-size:clamp(12.5px,1.7cqw,22.5px) !important; }
   }
   @keyframes rr-note-a { 0% { transform:rotate(-2.4deg) translateY(0); } 6% { transform:rotate(-5deg) translateY(-9px); } 12% { transform:rotate(-.6deg) translateY(-3px); } 18% { transform:rotate(-3.4deg) translateY(-6px); } 24% { transform:rotate(-1.8deg) translateY(0); } 30%,100% { transform:rotate(-2.4deg) translateY(0); } }
   @keyframes rr-note-b { 0% { transform:rotate(2.2deg) translateY(0); } 6% { transform:rotate(5.2deg) translateY(-9px); } 12% { transform:rotate(.6deg) translateY(-3px); } 18% { transform:rotate(3.6deg) translateY(-6px); } 24% { transform:rotate(1.6deg) translateY(0); } 30%,100% { transform:rotate(2.2deg) translateY(0); } }
@@ -92,10 +99,10 @@
     <img src="assets/rusty-sticker.png" alt="Rusty the Rat" style="width:40px; height:40px;">
     <span style="font-family:'Geo',sans-serif; text-transform:uppercase; line-height:1; font-size:23px; letter-spacing:.04em; display:inline-flex; gap:.12em;"><b style="color: #FBF4E6">RAT</b><b style="color:#f1b632">RACE</b></span>
   </a>
-  <button data-burger="" onClick="{{ onBurger }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:46px; height:46px; background:#f1b632; border:2px solid #f1b632; box-shadow:3px 3px 0 rgba(0,0,0,.5); cursor:pointer; padding:0;">
-    <span style="display:block; width:22px; height:3px; background:#33261F; transition:transform .2s ease; transform:{{ burgerTop }};"></span>
-    <span style="display:block; width:22px; height:3px; background:#33261F; transition:opacity .2s ease; opacity:{{ burgerMid }};"></span>
-    <span style="display:block; width:22px; height:3px; background:#33261F; transition:transform .2s ease; transform:{{ burgerBot }};"></span>
+  <button data-burger="" onClick="{{ onBurger }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:44px; height:44px; background:none; border:none; cursor:pointer; padding:0;">
+    <span style="display:block; width:24px; height:2px; background:#FBF4E6; transition:transform .2s ease; transform:{{ burgerTop }};"></span>
+    <span style="display:block; width:24px; height:2px; background:#FBF4E6; transition:opacity .2s ease; opacity:{{ burgerMid }};"></span>
+    <span style="display:block; width:24px; height:2px; background:#FBF4E6; transition:transform .2s ease; transform:{{ burgerBot }};"></span>
   </button>
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute; top:100%; left:0; right:0; display:flex; flex-direction:column; background:#140f0c; border-bottom:4px solid #f1b632; padding:6px 16px 18px;">
@@ -119,7 +126,7 @@
 <section id="top" data-hero="" style="position:relative; padding:0; background:#0b0908;">
   <div data-heroframe="" style="position:relative; container-type:inline-size; width:min(100%, 148svh); margin:0 auto; box-shadow:0 0 44px rgba(0,0,0,.6);">
     <img data-heroart="desktop" src="assets/Hero_landingPage.webp" width="2400" height="1600" fetchpriority="high" decoding="async" alt="Rat Race cork board with the P.A.T.H. map, clues and polaroids" style="display:block; width:100%; height:auto;">
-    <img data-heroart="mobile" src="assets/Hero_landingPage-mobile.jpg" width="1050" height="1420" fetchpriority="high" decoding="async" alt="Rat Race cork board with the P.A.T.H. map, clues and polaroids" style="width:100%; height:auto;">
+    <img data-heroart="mobile" src="assets/Hero_landingPage-mobile.webp" width="1080" height="2400" fetchpriority="high" decoding="async" alt="Rat Race cork board with the P.A.T.H. map, clues and polaroids" style="width:100%; height:auto;">
 
     <a data-floatcta="" href="#notify" onClick="{{ onTickets }}" style="position:absolute; top:5.2%; left:47%; z-index:6; display:block; font-size:clamp(7px,1.12cqw,13px); color:#171515; text-decoration:none; filter:drop-shadow(3px 4px 4px rgba(23,21,21,.45)); transform:rotate(-1.5deg); transition:opacity .3s ease, transform .12s ease, filter .15s ease; opacity:{{ floatOpacity }}; pointer-events:{{ floatPointer }};" style-hover="transform:rotate(-1.5deg) translate(-2px,-2px); filter:drop-shadow(5px 6px 7px rgba(23,21,21,.5))">
   <span data-ticketbody="" style="display:block; background-color:#F7F2E4; background-image:radial-gradient(rgba(23,21,21,.09) .6px, transparent .6px), radial-gradient(rgba(23,21,21,.06) .5px, transparent .5px); background-size:4px 4px, 7px 7px; background-position:0 0, 2px 3px; padding:.46em .7em;">
@@ -135,16 +142,16 @@
   </span>
 </a>
 
-    <div data-boardstack="" style="position:absolute; top:74%; left:50%; transform:translateX(calc(-50% + 50px)); display:grid; grid-template-columns:repeat(2,minmax(104px,140px)); justify-content:center; gap:clamp(24px,4vw,56px); align-items:start; width:max-content;">
+    <div data-boardstack="" style="position:absolute; top:76%; left:50%; transform:translateX(calc(-50% - 2cqw)); display:grid; grid-template-columns:repeat(2,clamp(92px,8.9cqw,128px)); justify-content:center; gap:clamp(24px,4vw,56px); align-items:start; width:max-content;">
         <div data-note="a" data-idle="{{ notesIdle }}" style="position:relative; transform:rotate(-2.4deg);">
             
             <span style="position:absolute; top:-11px; left:50%; width:clamp(44px,5vw,62px); height:20px; margin-left:calc(clamp(44px,5vw,62px) / -2); transform:rotate(-7deg); background:linear-gradient(105deg, rgba(246,238,213,.62), rgba(233,222,190,.78)); border-left:1px solid rgba(255,255,255,.45); border-right:1px solid rgba(120,104,74,.28); box-shadow:0 2px 4px rgba(0,0,0,.3); z-index:4;"></span>
-            <button data-door="" onClick="{{ onPickPublic }}" onMouseEnter="{{ onHoverPublic }}" onMouseLeave="{{ onHoverOut }}" onFocus="{{ onHoverPublic }}" onBlur="{{ onHoverOut }}" style="font-family:'Permanent Marker',cursive; text-transform:uppercase; line-height:1.15; font-size:clamp(15px,1.7vw,22px); letter-spacing:.01em; padding:14px 12px; width:100%; aspect-ratio:1/.86; display:flex; flex-direction:column; gap:6px; align-items:center; justify-content:center; text-align:center; cursor:pointer; color:#33261F; border:none; background:linear-gradient(170deg,#ffd95e 0%,#f7c53c 62%,#e9b32b 100%); box-shadow:0 2px 2px rgba(0,0,0,.2), 9px 14px 22px rgba(0,0,0,.45); transition:transform .12s ease, filter .15s ease;" style-hover="transform:translateY(-3px) rotate(1deg); filter:brightness(1.05)"><span>Public<br>event</span><span style="font-size:1.15em; line-height:.8; letter-spacing:.06em;">««</span></button>
+            <button data-door="" onClick="{{ onPickPublic }}" onMouseEnter="{{ onHoverPublic }}" onMouseLeave="{{ onHoverOut }}" onFocus="{{ onHoverPublic }}" onBlur="{{ onHoverOut }}" style="font-family:'Permanent Marker',cursive; text-transform:uppercase; line-height:1.15; font-size:clamp(14px,1.8cqw,27.5px); letter-spacing:0; padding:8px 4px; width:100%; aspect-ratio:1/.86; display:flex; flex-direction:column; gap:6px; align-items:center; justify-content:center; text-align:center; cursor:pointer; color:#33261F; border:none; background:linear-gradient(170deg,#ffd95e 0%,#f7c53c 62%,#e9b32b 100%); box-shadow:0 2px 2px rgba(0,0,0,.2), 9px 14px 22px rgba(0,0,0,.45); transition:transform .12s ease, filter .15s ease;" style-hover="transform:translateY(-3px) rotate(1deg); filter:brightness(1.05)"><span>Public<br>event</span><span style="font-size:1.15em; line-height:.8; letter-spacing:.06em;">««</span></button>
           </div>
         <div data-note="b" data-idle="{{ notesIdle }}" style="position:relative; transform:rotate(2.2deg);">
             
             <span style="position:absolute; top:-11px; left:50%; width:clamp(44px,5vw,62px); height:20px; margin-left:calc(clamp(44px,5vw,62px) / -2); transform:rotate(8deg); background:linear-gradient(105deg, rgba(246,238,213,.62), rgba(233,222,190,.78)); border-left:1px solid rgba(255,255,255,.45); border-right:1px solid rgba(120,104,74,.28); box-shadow:0 2px 4px rgba(0,0,0,.3); z-index:4;"></span>
-            <button data-door="" onClick="{{ onPickTeams }}" onMouseEnter="{{ onHoverTeams }}" onMouseLeave="{{ onHoverOut }}" onFocus="{{ onHoverTeams }}" onBlur="{{ onHoverOut }}" style="font-family:'Permanent Marker',cursive; text-transform:uppercase; line-height:1.15; font-size:clamp(15px,1.7vw,22px); letter-spacing:.01em; padding:14px 12px; width:100%; aspect-ratio:1/.86; display:flex; flex-direction:column; gap:6px; align-items:center; justify-content:center; text-align:center; cursor:pointer; color:#33261F; border:none; background:linear-gradient(170deg,#bfe6e4 0%,#a3d8d6 62%,#8ac6c4 100%); box-shadow:0 2px 2px rgba(0,0,0,.2), 9px 14px 22px rgba(0,0,0,.45); transition:transform .12s ease, filter .15s ease;" style-hover="transform:translateY(-3px) rotate(-1deg); filter:brightness(1.05)"><span>For<br>companies</span><span style="font-size:1.15em; line-height:.8; letter-spacing:.06em;">»»</span></button>
+            <button data-door="" onClick="{{ onPickTeams }}" onMouseEnter="{{ onHoverTeams }}" onMouseLeave="{{ onHoverOut }}" onFocus="{{ onHoverTeams }}" onBlur="{{ onHoverOut }}" style="font-family:'Permanent Marker',cursive; text-transform:uppercase; line-height:1.15; font-size:clamp(14px,1.8cqw,27.5px); letter-spacing:0; padding:8px 4px; width:100%; aspect-ratio:1/.86; display:flex; flex-direction:column; gap:6px; align-items:center; justify-content:center; text-align:center; cursor:pointer; color:#33261F; border:none; background:linear-gradient(170deg,#bfe6e4 0%,#a3d8d6 62%,#8ac6c4 100%); box-shadow:0 2px 2px rgba(0,0,0,.2), 9px 14px 22px rgba(0,0,0,.45); transition:transform .12s ease, filter .15s ease;" style-hover="transform:translateY(-3px) rotate(-1deg); filter:brightness(1.05)"><span>For<br>companies</span><span style="font-size:1.15em; line-height:.8; letter-spacing:.06em;">»»</span></button>
           </div>
         
     </div>
@@ -180,7 +187,7 @@
           <h2 style="font-family:'Geo',sans-serif; font-weight:400; text-transform:uppercase; letter-spacing:.01em; margin:0 0 14px; font-size:clamp(40px,6vw,78px); line-height:.9;">Your mission,<br>step by step</h2>
           
         </div>
-        <div data-grid="three" style="display:grid; grid-template-columns:repeat(3,1fr); gap:26px 24px;">
+        <div data-grid="three" data-mission="" style="display:grid; grid-template-columns:repeat(3,1fr); gap:26px 24px;">
           <div style="position:relative; background:#FFFFFF; color:#33261F; border:2px solid #33261F; padding:30px 24px 26px; display:flex; flex-direction:column; gap:10px; transform:rotate(-1.2deg); box-shadow:7px 7px 0 rgba(51,38,31,.5); transition:transform .18s ease, box-shadow .18s ease;" style-hover="transform:rotate(0deg) translateY(-4px); box-shadow:11px 11px 0 rgba(51,38,31,.55)">
             <div style="position:absolute; top:-16px; left:-12px; width:44px; height:44px; border:2px solid #33261F; border-radius:50%; background:#33261F; color:#f1b632; display:flex; align-items:center; justify-content:center; font-family:'Geo',sans-serif; font-size:20px; letter-spacing:.02em; padding-top:3px;">01</div>
             <div style="width:34px; height:34px; margin-left:auto; opacity:.85;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="width:100%; height:100%;"><path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-6h4v6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
@@ -303,11 +310,11 @@
           
           
         </div><div id="sponsors" style="background:#f1b632; border:3px solid #33261F; box-shadow:9px 9px 0 rgba(51,38,31,.18); padding:10px; margin-top:8px;">
-          <div style="border: 2px dashed rgba(51,38,31,.55); padding: 26px 22px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; width: 427px; height: 385px">
+          <div style="border: 2px dashed rgba(51,38,31,.55); padding: 26px 22px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; box-sizing: border-box; width: 100%; max-width: 427px; min-height: 385px; justify-content: center;">
             <p style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#5e4506; margin:0;">Reward offered</p>
             <h3 style="font-family:'Geo',sans-serif; font-weight:400; text-transform:uppercase; letter-spacing:.02em; line-height:.86; margin:0; font-size:clamp(46px,6.5vw,78px);">Wanted</h3>
             
-            <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3a2c0c; max-width: 34ch; width: 308px; height: 126px">Sponsored checkpoints, prizes and co-branded missions. Help us build Toronto's next great urban adventure.</p>
+            <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3a2c0c; max-width: 308px;">Sponsored checkpoints, prizes and co-branded missions. Help us build Toronto's next great urban adventure.</p>
             <a href="#join" onClick="{{ onOpenJoin }}" style="font-family:'Geo',sans-serif; text-transform:uppercase; line-height:1; font-size:19px; letter-spacing:.04em; padding:15px 24px 13px; display:inline-flex; align-items:center; gap:.6em; text-decoration:none; white-space:nowrap; background:#33261F; color:#f1b632; box-shadow:5px 5px 0 rgba(51,38,31,.35); transition:transform .12s ease;" style-hover="background:#da5c2d; color:#33261F; transform:translate(-2px,-2px)">Join the fun →</a>
           </div>
         </div>
@@ -916,9 +923,9 @@ class Component extends DCLogic {
       notifySent: this.state.sent,
       notifyOpen: !this.state.sent,
       menuOpen: !!this.state.menu,
-      burgerTop: this.state.menu ? 'translateY(8px) rotate(45deg)' : 'none',
+      burgerTop: this.state.menu ? 'translateY(7px) rotate(45deg)' : 'none',
       burgerMid: this.state.menu ? '0' : '1',
-      burgerBot: this.state.menu ? 'translateY(-8px) rotate(-45deg)' : 'none',
+      burgerBot: this.state.menu ? 'translateY(-7px) rotate(-45deg)' : 'none',
       onBurger: () => this.setState(s => ({ menu: !s.menu })),
       onMenuPublic: () => { this.setState({ menu: false }); this.pick('public', true); },
       onMenuTeams: () => { this.setState({ menu: false }); this.pick('teams', true); },
