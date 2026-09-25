@@ -32,9 +32,14 @@
   @media (max-width:760px){
     [data-heroart="desktop"] { display:none !important; }
     [data-heroart="mobile"] { display:block !important; }
-    [data-heroframe] { width:min(100%, 72svh) !important; }
     [data-boardstack] { top:74% !important; grid-template-columns:repeat(2,minmax(78px,112px)) !important; gap:clamp(12px,4vw,28px) !important; }
     [data-boardstack] svg { width:clamp(30px,8vw,52px) !important; }
+    [data-hero] { min-height:100svh; display:flex; align-items:center; }
+    [data-heroframe] { width:100% !important; box-shadow:none !important; }
+    [data-boardstack] { transform:translateX(-50%) !important; }
+    [data-navdesk] { display:none !important; }
+    [data-burger] { display:flex !important; }
+    [data-nav] { padding:8px 16px !important; }
     [data-floatcta] { top:1% !important; left:auto !important; right:3% !important; font-size:clamp(8px,2.6cqw,13px) !important; transform:rotate(-1.5deg) !important; }
   }
   @media (max-height:640px){
@@ -87,7 +92,19 @@
     <img src="assets/rusty-sticker.png" alt="Rusty the Rat" style="width:40px; height:40px;">
     <span style="font-family:'Geo',sans-serif; text-transform:uppercase; line-height:1; font-size:23px; letter-spacing:.04em; display:inline-flex; gap:.12em;"><b style="color: #FBF4E6">RAT</b><b style="color:#f1b632">RACE</b></span>
   </a>
-  <nav style="display:flex; align-items:center; gap:clamp(14px,3vw,30px);">
+  <button data-burger="" onClick="{{ onBurger }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:46px; height:46px; background:#f1b632; border:2px solid #f1b632; box-shadow:3px 3px 0 rgba(0,0,0,.5); cursor:pointer; padding:0;">
+    <span style="display:block; width:22px; height:3px; background:#33261F; transition:transform .2s ease; transform:{{ burgerTop }};"></span>
+    <span style="display:block; width:22px; height:3px; background:#33261F; transition:opacity .2s ease; opacity:{{ burgerMid }};"></span>
+    <span style="display:block; width:22px; height:3px; background:#33261F; transition:transform .2s ease; transform:{{ burgerBot }};"></span>
+  </button>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; top:100%; left:0; right:0; display:flex; flex-direction:column; background:#140f0c; border-bottom:4px solid #f1b632; padding:6px 16px 18px;">
+      <button onClick="{{ onMenuPublic }}" style="background:none; border:none; border-bottom:1px solid rgba(251,244,230,.16); padding:16px 0; text-align:left; cursor:pointer; font-family:'Space Mono',monospace; font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:{{ pubLinkFg }};">Public race</button>
+      <button onClick="{{ onMenuTeams }}" style="background:none; border:none; border-bottom:1px solid rgba(251,244,230,.16); padding:16px 0; text-align:left; cursor:pointer; font-family:'Space Mono',monospace; font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:{{ teamLinkFg }};">For companies</button>
+      <a href="{{ navCtaHref }}" onClick="{{ onMenuCta }}" style="margin-top:16px; display:flex; justify-content:center; background:#f1b632; color:#33261F; padding:14px 18px; text-decoration:none; box-shadow:3px 3px 0 rgba(0,0,0,.5);"><span style="font-family:'Geo',sans-serif; text-transform:uppercase; line-height:1; font-size:20px; letter-spacing:.04em;">{{ navCtaLabel }}</span></a>
+    </div>
+  </sc-if>
+  <nav data-navdesk="" style="display:flex; align-items:center; gap:clamp(14px,3vw,30px);">
     <button data-navmode="" onClick="{{ onPickPublic }}" style="background:none; border:none; padding:0; cursor:pointer; font-family:'Space Mono',monospace; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; color:{{ pubLinkFg }};" style-hover="color:#f1b632">Public race</button>
     <button data-navmode="" onClick="{{ onPickTeams }}" style="background:none; border:none; padding:0; cursor:pointer; font-family:'Space Mono',monospace; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; color:{{ teamLinkFg }};" style-hover="color:#f1b632">For companies</button>
     <a href="{{ navCtaHref }}" onClick="{{ onNavCta }}" style="position:relative; display:inline-flex; align-items:center; gap:10px; background:#f1b632; color:#33261F; border:2px solid #f1b632; padding:8px 18px; text-decoration:none; white-space:nowrap; box-shadow:3px 3px 0 rgba(51,38,31,.5); transition:transform .12s ease, background .15s ease;" style-hover="background:#da5c2d; color:#33261F; transform:translate(-1px,-1px)">
@@ -898,6 +915,14 @@ class Component extends DCLogic {
       warshawskiHref: (this.props.warshawskiUrl || '').trim() || 'https://warshawski.ca',
       notifySent: this.state.sent,
       notifyOpen: !this.state.sent,
+      menuOpen: !!this.state.menu,
+      burgerTop: this.state.menu ? 'translateY(8px) rotate(45deg)' : 'none',
+      burgerMid: this.state.menu ? '0' : '1',
+      burgerBot: this.state.menu ? 'translateY(-8px) rotate(-45deg)' : 'none',
+      onBurger: () => this.setState(s => ({ menu: !s.menu })),
+      onMenuPublic: () => { this.setState({ menu: false }); this.pick('public', true); },
+      onMenuTeams: () => { this.setState({ menu: false }); this.pick('teams', true); },
+      onMenuCta: e => { this.setState({ menu: false }); if (!teams) { e.preventDefault(); this.tickets(); } },
       onPickPublic: () => this.pick('public', true),
       onPickTeams: () => this.pick('teams', true),
       onLogo: () => { this._statDone = []; },
